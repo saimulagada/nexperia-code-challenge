@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "redis": "^4.7.0",
+    "time-delta": "^1.0.0"
+  }
+}
