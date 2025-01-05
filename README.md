@@ -1,5 +1,11 @@
 # nexperia-code-challenge
-Creating an Email outreach platform with AI integration in Django. /n
- -> started an project named core and started an app with name emailApp /n
- -> created a git repository to track the changes. /n
+Creating an Email outreach platform with AI integration in Django. 
+ -> started an project named core and started an app with name emailApp 
+ -> created a git repository to track the changes. 
  -> created a virtual environment named "kenv" to install necessary dependencies and managers.
+ -> created a form to upload csv files which checks the fields must contain email and firstname and when uploaded it will successfully stored in database.
+ -> created a template editor where user once logged in can edit email templates.
+ -> created a sending email page. when user wants to send details of his/her. they can enter the details of them and when clicking send the email got send to the registered email addresses.
+ -> used try and catch effectively to enhance and find error debugging.
+ 
+ 
