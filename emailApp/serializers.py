@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import EmailTemplate,UserProfile
+from .models import EmailTemplate,UserProfile,CampaignMetrics
 
 class EmailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,3 +16,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = "__all__"
+
+class CampaignMetricsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CampaignMetrics
+        fields = ['id', 'campaign_name', 'emails_sent', 'emails_pending', 'emails_failed', 'last_updated']

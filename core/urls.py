@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from emailApp.views import *
+from emailApp import views
 
 
 
@@ -24,6 +25,10 @@ urlpatterns = [
     path('upload-csv/', CSVSavingView.as_view(), name='save-csv'),
     path('api/email-templates/', EmailTemplateCreateView.as_view(), name='create-email-template'),
     path('api/send-email/', SendEmailView.as_view(), name='send_email'),
+    path("api/email-suggestions/", get_email_suggestions, name="email_suggestions"),
+    path('api/campaign-metrics/save/', CampaignMetricsCreateView.as_view(), name='create_campaign'),
+    path('api/campaign-metrics/<str:campaign_name>/', CampaignMetricsView.as_view(), name='campaign_detail'),
+   path('api/campaign-view-set/', CampaignMetricsViewSet.as_view({'get': 'list', 'post': 'create'}), name="campaign_view"),
 ]
 
 if settings.DEBUG:

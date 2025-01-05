@@ -25,6 +25,13 @@ from email.mime.multipart import MIMEMultipart
 from django.conf import settings
 from core.tasks import send_email_with_delay
 import time
+from django.http import JsonResponse
+from core.ai_utils import generate_email_suggestions  
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import CampaignMetrics
+from .serializers import CampaignMetricsSerializer
+from rest_framework import viewsets
 
 class RegisterView(APIView):
     def post(self, request):
@@ -301,3 +308,80 @@ class SendEmailView(APIView):
         except smtplib.SMTPException as e:
             # Log the error if the email sending fails
             return Response({'error': f'Failed to send email: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    
+
+
+@csrf_exempt
+def get_email_suggestions(request):
+    if request.method == "POST":
+        try:
+            # Parse JSON input
+            data = json.loads(request.body)
+            description = data.get("description", "")
+
+            if not description:
+                return JsonResponse({"success": False, "error": "Description is required."}, status=400)
+
+            # Generate suggestions
+            suggestions = generate_email_suggestions(description)
+            return JsonResponse({"success": True, "suggestions": suggestions}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"success": False, "error": "Invalid JSON format."}, status=400)
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)}, status=500)
+
+    return JsonResponse({"success": False, "error": "Only POST requests are allowed."}, status=405)
+
+
+class CampaignMetricsView(APIView):
+    def get(self, request, campaign_name):
+        campaign = CampaignMetrics.objects.filter(campaign_name=campaign_name).first()
+        if campaign:
+            serializer = CampaignMetricsSerializer(campaign)
+            return Response(serializer.data)
+        return Response({"error": "Campaign not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+
+class CampaignMetricsCreateView(APIView):
+    def post(self, request):
+        # Get data from the request
+        campaign_name = request.data.get('campaign_name')
+        emails_sent = request.data.get('emails_sent', 0)
+        emails_pending = request.data.get('emails_pending', 0)
+        emails_failed = request.data.get('emails_failed', 0)
+
+        # Validate required fields
+        if not campaign_name:
+            return Response({"error": "Campaign name is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create the campaign metrics entry
+        campaign_metrics = CampaignMetrics.objects.create(
+            campaign_name=campaign_name,
+            emails_sent=emails_sent,
+            emails_pending=emails_pending,
+            emails_failed=emails_failed
+        )
+
+        # Return the created campaign metrics as a response
+        return Response({
+            "campaign_name": campaign_metrics.campaign_name,
+            "emails_sent": campaign_metrics.emails_sent,
+            "emails_pending": campaign_metrics.emails_pending,
+            "emails_failed": campaign_metrics.emails_failed,
+            "last_updated": campaign_metrics.last_updated,
+        }, status=status.HTTP_201_CREATED)
+    
+class CampaignMetricsViewSet(viewsets.ViewSet):
+    def list(self, request):
+        campaigns = CampaignMetrics.objects.all()
+        serializer = CampaignMetricsSerializer(campaigns, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = CampaignMetricsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

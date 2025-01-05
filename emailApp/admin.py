@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EmailTemplate,UserProfile
+from .models import EmailTemplate,UserProfile,CampaignMetrics
 
 
 
@@ -7,3 +7,4 @@ from .models import EmailTemplate,UserProfile
 
 admin.site.register(EmailTemplate)
 admin.site.register(UserProfile)
+admin.site.register(CampaignMetrics)
