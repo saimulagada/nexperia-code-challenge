@@ -11,7 +11,7 @@ Creating an Email outreach platform with AI integration in Django.
  
  -> created a template editor where user once logged in can edit email templates.
  
- -> created a sending email page. when user wants to send details of his/her. they can enter the details of them and when clicking send the email got send to the registered email addresses.
+ -> created a sending email page. when user wants to send details of his/her. they can enter the details of them and when clicking send the email got send to the registered email addresses.(My email address. if someone wants to get to their email they can change the code to get emails to their mail).
  
  -> used try and catch effectively to enhance and find error debugging.
  
