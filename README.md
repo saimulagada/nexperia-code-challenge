@@ -23,7 +23,7 @@ Creating an Email outreach platform with AI integration in Django.
  -> In main branch Django code is pushed and in master branch Next.js code is pushed because of different commit Histories.
  -> Please Register first to Login into the Home Page.
  
- -> I have added necessary requirements or packages to install in requiremenst.txt folder in django code. please check it install and necessary packages. and in next.js part the pages are included in package.json file.
+ -> I have added necessary requirements or packages to install in requiremenst.txt folder in django code. please check it install and necessary packages. and in next.js part the packages are included in package.json file.
  
  -> In sendEmail Page if you have sent an email once. you cant send email again and a error message will be shown to you. you need to login again to send email again.
  
