@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-_91p2j%**vxagjfw3+r_9ia$tjc7-qgtq=+06fomzu(z650m72
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["nexperia-code-challenge-2uad.onrender.com","127.0.0.1","localhost"]
 
 
 # Application definition
