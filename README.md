@@ -7,7 +7,7 @@ Creating an Email outreach platform with AI integration in Django.
  
  -> created a virtual environment named "kenv" to install necessary dependencies and managers.
  
- -> created a form to upload csv files which checks the fields must contain email and firstname and when uploaded it will successfully stored in database.
+ -> created a form to upload csv files which checks the fields must contain email and firstname and when uploaded it will successfully stored in database. You need to have CSV FILE with email, firstname (both are must) and remaining fields to upload csv file to the database.
  
  -> created a template editor where user once logged in can edit email templates.
  
