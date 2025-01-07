@@ -156,9 +156,14 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     
     "http://localhost:3000",
-    "https://ai-apps-328a.onrender.com"
+    "https://ai-apps-328a.onrender.com",
+    "https://nexperiaapp.vercel.app"
     
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True  
+
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
